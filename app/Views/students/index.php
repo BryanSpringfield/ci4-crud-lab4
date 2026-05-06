@@ -8,6 +8,8 @@
 
 <h2 class="mb-3">Student List</h2>
 
+<h5 class="text-success">Bootstrap UI Applied</h5>
+
 <?php $success = session()->getFlashdata('success'); ?>
 <?php if (!empty($success) && is_string($success)): ?>
     <p style="color: green; font-weight: 500;">
