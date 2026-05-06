@@ -19,6 +19,7 @@
 
 <!-- SEARCH -->
 <form method="get" action="/students" class="mb-3">
+    <p class="text-info">Search feature active</p>
     <input type="text"
            name="search"
            class="form-control w-25 d-inline"
