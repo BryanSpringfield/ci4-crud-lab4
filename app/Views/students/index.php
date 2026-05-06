@@ -8,7 +8,12 @@
 
 <h2 class="mb-3">Student List</h2>
 
+<<<<<<< HEAD
 <!-- SUCCESS MESSAGE -->
+=======
+<h5 class="text-success">Bootstrap UI Applied</h5>
+
+>>>>>>> daa953f87b1adf1e89eaef397cdcc85723cdd69a
 <?php $success = session()->getFlashdata('success'); ?>
 <?php if (!empty($success) && is_string($success)): ?>
     <div class="alert alert-success">
@@ -17,7 +22,12 @@
 <?php endif; ?>
 
 <!-- SEARCH -->
+<<<<<<< HEAD
 <form method="get" action="<?= base_url('students') ?>" class="mb-3">
+=======
+<form method="get" action="/students" class="mb-3">
+    <p class="text-info">Search feature active</p>
+>>>>>>> daa953f87b1adf1e89eaef397cdcc85723cdd69a
     <input type="text"
            name="search"
            class="form-control w-25 d-inline"
