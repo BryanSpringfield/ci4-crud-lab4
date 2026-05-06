@@ -8,15 +8,16 @@
 
 <h2 class="mb-3">Student List</h2>
 
+<!-- SUCCESS MESSAGE -->
 <?php $success = session()->getFlashdata('success'); ?>
 <?php if (!empty($success) && is_string($success)): ?>
-    <p style="color: green; font-weight: 500;">
+    <div class="alert alert-success">
         <?= esc($success) ?>
-    </p>
+    </div>
 <?php endif; ?>
 
 <!-- SEARCH -->
-<form method="get" action="/students" class="mb-3">
+<form method="get" action="<?= base_url('students') ?>" class="mb-3">
     <input type="text"
            name="search"
            class="form-control w-25 d-inline"
@@ -25,7 +26,7 @@
 </form>
 
 <!-- ADD BUTTON -->
-<a href="/students/create" class="btn btn-success mb-3">Add Student</a>
+<a href="<?= base_url('students/create') ?>" class="btn btn-success mb-3">Add Student</a>
 
 <!-- TABLE -->
 <table class="table table-bordered table-striped">
@@ -48,8 +49,8 @@
         <td><?= esc((string)$s['email']) ?></td>
         <td><?= esc((string)$s['course']) ?></td>
         <td class="text-center">
-            <a href="/students/edit/<?= esc((string)$s['id']) ?>" class="btn btn-warning btn-sm">Edit</a>
-            <a href="/students/delete/<?= esc((string)$s['id']) ?>"
+            <a href="<?= base_url('students/edit/' . $s['id']) ?>" class="btn btn-warning btn-sm">Edit</a>
+            <a href="<?= base_url('students/delete/' . $s['id']) ?>"
                class="btn btn-danger btn-sm"
                onclick="return confirm('Are you sure?')">Delete</a>
         </td>
@@ -64,7 +65,7 @@
 </tbody>
 </table>
 
-<!-- ✅ PAGINATION (SAFE, NO ERROR) -->
+<!-- PAGINATION -->
 <div class="d-flex justify-content-center mt-4">
     <?php if (isset($pager) && $pager !== null): ?>
         <?= $pager->links('default', 'bootstrap_full') ?>
