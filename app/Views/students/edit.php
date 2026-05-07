@@ -35,34 +35,56 @@
     <th class="text-center">Action</th>
 </tr>
 </thead>
+
 <tbody>
 
 <?php if (!empty($students) && is_array($students)): ?>
     <?php foreach ($students as $s): ?>
+
+    <?php $id = isset($s['id']) ? (int)$s['id'] : 0; ?>
+
     <tr>
-        <td><?= esc((string)$s['id']) ?></td>
-        <td><?= esc((string)$s['name']) ?></td>
-        <td><?= esc((string)$s['email']) ?></td>
-        <td><?= esc((string)$s['course']) ?></td>
+        <td><?= esc((string)$id) ?></td>
+        <td><?= esc((string)($s['name'] ?? '')) ?></td>
+        <td><?= esc((string)($s['email'] ?? '')) ?></td>
+        <td><?= esc((string)($s['course'] ?? '')) ?></td>
+
         <td class="text-center">
-            <a href="<?= site_url('students/edit/' . $s['id']) ?>" class="btn btn-warning btn-sm">Edit</a>
-            <a href="<?= site_url('students/delete/' . $s['id']) ?>"
-               class="btn btn-danger btn-sm"
-               onclick="return confirm('Are you sure?')">Delete</a>
+
+            <?php if ($id > 0): ?>
+                <a href="<?= site_url('students/edit/' . $id) ?>" 
+                   class="btn btn-warning btn-sm">
+                   Edit
+                </a>
+
+                <a href="<?= site_url('students/delete/' . $id) ?>"
+                   class="btn btn-danger btn-sm"
+                   onclick="return confirm('Are you sure?')">
+                   Delete
+                </a>
+            <?php else: ?>
+                <span class="text-muted">No Action</span>
+            <?php endif; ?>
+
         </td>
     </tr>
+
     <?php endforeach; ?>
 <?php else: ?>
+
 <tr>
-    <td colspan="5" class="text-center">No data</td>
+    <td colspan="5" class="text-center text-muted">
+        No data found
+    </td>
 </tr>
+
 <?php endif; ?>
 
 </tbody>
 </table>
 
 <div class="d-flex justify-content-center mt-4">
-    <?php if (isset($pager) && $pager !== null): ?>
+    <?php if (!empty($pager)): ?>
         <?= $pager->links('default', 'bootstrap_full') ?>
     <?php endif; ?>
 </div>
