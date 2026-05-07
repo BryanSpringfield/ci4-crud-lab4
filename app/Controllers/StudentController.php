@@ -6,6 +6,7 @@ use App\Models\StudentModel;
 
 class StudentController extends BaseController
 {
+    // Search feature implemented by Carl
     public function index()
     {
         $model = new StudentModel();

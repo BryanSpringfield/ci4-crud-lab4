@@ -1,6 +1,14 @@
 <?php
+
 $validation = $validation ?? \Config\Services::validation();
-$student = $student ?? ['id'=>'','name'=>'','email'=>'','course'=>''];
+
+$student = $student ?? [
+    'id' => '',
+    'name' => '',
+    'email' => '',
+    'course' => ''
+];
+
 ?>
 
 <!DOCTYPE html>
@@ -11,34 +19,47 @@ $student = $student ?? ['id'=>'','name'=>'','email'=>'','course'=>''];
 </head>
 <body class="container mt-4">
 
-<h2>Edit Student</h2>
+<h2 class="mb-3">Edit Student</h2>
 
 <form method="post" action="/students/update/<?= esc($student['id']) ?>">
 
-    <input type="text" name="name"
+    <!-- NAME -->
+    <input
+        type="text"
+        name="name"
         value="<?= esc(old('name') ?? $student['name']) ?>"
-        class="form-control mb-2 <?= ($validation->hasError('name')) ? 'is-invalid' : '' ?>">
+        class="form-control mb-2 <?= ($validation->hasError('name')) ? 'is-invalid' : '' ?>"
+        placeholder="Enter Name">
 
     <div class="text-danger mb-2">
         <?= esc($validation->getError('name') ?? '') ?>
     </div>
 
-    <input type="email" name="email"
+    <!-- EMAIL -->
+    <input
+        type="email"
+        name="email"
         value="<?= esc(old('email') ?? $student['email']) ?>"
-        class="form-control mb-2 <?= ($validation->hasError('email')) ? 'is-invalid' : '' ?>">
+        class="form-control mb-2 <?= ($validation->hasError('email')) ? 'is-invalid' : '' ?>"
+        placeholder="Enter Email">
 
     <div class="text-danger mb-2">
         <?= esc($validation->getError('email') ?? '') ?>
     </div>
 
-    <input type="text" name="course"
+    <!-- COURSE -->
+    <input
+        type="text"
+        name="course"
         value="<?= esc(old('course') ?? $student['course']) ?>"
-        class="form-control mb-2 <?= ($validation->hasError('course')) ? 'is-invalid' : '' ?>">
+        class="form-control mb-3 <?= ($validation->hasError('course')) ? 'is-invalid' : '' ?>"
+        placeholder="Enter Course">
 
-    <div class="text-danger mb-2">
+    <div class="text-danger mb-3">
         <?= esc($validation->getError('course') ?? '') ?>
     </div>
 
+    <!-- BUTTONS -->
     <button class="btn btn-primary">Update</button>
     <a href="/students" class="btn btn-secondary">Cancel</a>
 
