@@ -9,11 +9,15 @@ class ApiController extends ResourceController
 {
     public function index()
     {
-        $model = new StudentModel();
+        $studentModel = new StudentModel();
 
-        return $this->respond([
-            'status' => 200,
-            'data' => $model->findAll()
-        ]);
+        $students = $studentModel->findAll();
+
+        return $this->respond(
+            [
+                'status' => 200,
+                'data'   => $students,
+            ]
+        );
     }
 }
