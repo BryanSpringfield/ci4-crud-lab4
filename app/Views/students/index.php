@@ -26,18 +26,14 @@
 
 <h2 class="mb-3">Student List</h2>
 
-<h5 class="text-success">Bootstrap UI Applied</h5>
-
 <?php $success = session()->getFlashdata('success'); ?>
 <?php if (!empty($success) && is_string($success)): ?>
-    <p style="color: green; font-weight: 500;">
+    <div class="alert alert-success">
         <?= esc($success) ?>
-    </p>
+    </div>
 <?php endif; ?>
 
-<!-- SEARCH -->
-<form method="get" action="/students" class="mb-3">
-    <p class="text-info">Search feature active</p>
+<form method="get" action="<?= base_url('students') ?>" class="mb-3">
     <input type="text"
            name="search"
            class="form-control w-25 d-inline"
@@ -45,10 +41,8 @@
     <button class="btn btn-primary btn-sm">Search</button>
 </form>
 
-<!-- ADD BUTTON -->
-<a href="/students/create" class="btn btn-success mb-3">Add Student</a>
+<a href="<?= base_url('students/create') ?>" class="btn btn-success mb-3">Add Student</a>
 
-<!-- TABLE -->
 <table class="table table-bordered table-striped">
 <thead class="table-dark">
 <tr>
@@ -63,18 +57,34 @@
 
 <?php if (!empty($students) && is_array($students)): ?>
     <?php foreach ($students as $s): ?>
+
+    <?php $id = $s['id'] ?? null; ?>
+
     <tr>
-        <td><?= esc((string)$s['id']) ?></td>
-        <td><?= esc((string)$s['name']) ?></td>
-        <td><?= esc((string)$s['email']) ?></td>
-        <td><?= esc((string)$s['course']) ?></td>
+        <td><?= esc((string)$id) ?></td>
+        <td><?= esc((string)$s['name'] ?? '') ?></td>
+        <td><?= esc((string)$s['email'] ?? '') ?></td>
+        <td><?= esc((string)$s['course'] ?? '') ?></td>
+
         <td class="text-center">
-            <a href="/students/edit/<?= esc((string)$s['id']) ?>" class="btn btn-warning btn-sm">Edit</a>
-            <a href="/students/delete/<?= esc((string)$s['id']) ?>"
-               class="btn btn-danger btn-sm"
-               onclick="return confirm('Are you sure?')">Delete</a>
+
+            <?php if ($id): ?>
+                <a href="<?= base_url('students/edit/' . $id) ?>" class="btn btn-warning btn-sm">
+                    Edit
+                </a>
+
+                <a href="<?= base_url('students/delete/' . $id) ?>"
+                   class="btn btn-danger btn-sm"
+                   onclick="return confirm('Are you sure?')">
+                   Delete
+                </a>
+            <?php else: ?>
+                <span class="text-muted">No Action</span>
+            <?php endif; ?>
+
         </td>
     </tr>
+
     <?php endforeach; ?>
 <?php else: ?>
 <tr>
@@ -85,7 +95,6 @@
 </tbody>
 </table>
 
-<!-- ✅ PAGINATION (SAFE, NO ERROR) -->
 <div class="d-flex justify-content-center mt-4">
     <?php if (isset($pager) && $pager !== null): ?>
         <?= $pager->links('default', 'bootstrap_full') ?>

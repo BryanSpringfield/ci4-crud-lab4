@@ -57,16 +57,18 @@ class StudentController extends BaseController
             'course' => $this->request->getPost('course'),
         ]);
 
-        return redirect()->to('/students')->with('success', 'Student added successfully!');
+        return redirect()->to(site_url('students'))
+                         ->with('success', 'Student added successfully!');
     }
 
     public function edit(int $id)
     {
         $model = new StudentModel();
+
         $student = $model->find($id);
 
         if (!$student) {
-            return redirect()->to('/students');
+            throw new \CodeIgniter\Exceptions\PageNotFoundException("Student with ID $id not found");
         }
 
         return view('students/edit', [
@@ -103,7 +105,8 @@ class StudentController extends BaseController
             'course' => $this->request->getPost('course'),
         ]);
 
-        return redirect()->to('/students')->with('success', 'Student updated successfully!');
+        return redirect()->to(site_url('students'))
+                         ->with('success', 'Student updated successfully!');
     }
 
     public function delete(int $id)
@@ -111,6 +114,7 @@ class StudentController extends BaseController
         $model = new StudentModel();
         $model->delete($id);
 
-        return redirect()->to('/students')->with('success', 'Student deleted successfully!');
+        return redirect()->to(site_url('students'))
+                         ->with('success', 'Student deleted successfully!');
     }
 }

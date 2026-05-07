@@ -10,7 +10,9 @@
 
 <h2>Add Student</h2>
 
-<form method="post" action="/students/store">
+<form method="post" action="<?= site_url('students/store') ?>">
+
+    <?= csrf_field() ?>
 
     <input type="text" name="name"
         placeholder="Name"
@@ -40,7 +42,7 @@
     </div>
 
     <button class="btn btn-success">Save</button>
-    <a href="/students" class="btn btn-secondary">Cancel</a>
+    <a href="<?= site_url('students') ?>" class="btn btn-secondary">Cancel</a>
 
 </form>
 
